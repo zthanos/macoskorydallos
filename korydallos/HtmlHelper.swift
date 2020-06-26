@@ -11,19 +11,19 @@ import WebKit
 
 struct HTMLLabel: UIViewRepresentable {
     @State var html : String = ""
-
-
+    
+    
     func makeUIView(context: UIViewRepresentableContext<Self>) -> UILabel {
         let label = UILabel()
-        print(html)
+        //print(html)
         label.attributedText = html.convertToAttributedFromHTML()
         ///label.attributedText = html.convertHtml()
-
+        
         return label
     }
-
+    
     func updateUIView(_ uiView: UILabel, context: UIViewRepresentableContext<Self>) {}
-
+    
 }
 
 
@@ -32,22 +32,23 @@ struct HtmlView : UIViewRepresentable {
     let encoded : Bool 
     
     func makeUIView(context: Context) -> WKWebView {
+        
         return WKWebView()
     }
     
-      func updateUIView(_ uiView: WKWebView, context: Context) {
-      
+    func updateUIView(_ uiView: WKWebView, context: Context) {
+        
         let htmlbody = encoded ? htmlString.fromBase64() ?? "" : htmlString
-
+        let adjustFontSize = encoded ? "body { font-size: 100%; }" : " "
         let html = """
         <html>
         <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style> body { font-size: 100%; } </style>
+        <style> \(adjustFontSize) </style>
         </head>
         <body>
         \(htmlbody)
-        </body0
+        </body>
         </html>
         """
         uiView.loadHTMLString(html, baseURL: nil)

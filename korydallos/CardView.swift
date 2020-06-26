@@ -20,37 +20,49 @@ struct CardView: View {
     
     
     var body: some View {
-        
-        VStack{
-            
-            
-            HStack{
-                VStack(alignment: .leading){
-                    Text(category)
-                        .font(.headline)
-                        .foregroundColor(.secondary)
-                    Text(author)
-                        .font(.title)
-                        .fontWeight(.black)
-                        .foregroundColor(.primary)
-                        .lineLimit(5)
-                    Text(heading)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-                .layoutPriority(100000)
-                Spacer()
-            }
-            HStack{
+    
+        VStack(alignment: .leading){
+            Text(category)
+                .font(.headline)
+                .foregroundColor(.secondary)
+            Text(author)
+                .font(.title)
+                .fontWeight(.black)
+                .foregroundColor(.primary)
+                .lineLimit(5)
+            if category == "Twitter"{
+                Text(heading)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
                 AsyncImage(
                     url: URL(string: image)!,
                     placeholder: Text("Loading..."),
                     cache: self.cache
-                ).aspectRatio(contentMode: .fill )
+                ).aspectRatio(contentMode: .fit )
+            } else {
+                VStack(alignment: .leading){
+                   
+                   Text(ClearHtmlTags(string: heading))
+                        .lineLimit(5)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    AsyncImage(
+                        url: URL(string: image)!,
+                        placeholder: Text("Loading..."),
+                        cache: self.cache
+                    ).aspectRatio(contentMode: .fill)
+                }
+                
             }
         }
-        .padding()
-        
+    }
+    
+    
+    // }
+    
+    func ClearHtmlTags(string: String) -> String{
+        let str = string.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+        return str;
     }
 }
 
