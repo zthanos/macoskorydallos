@@ -8,6 +8,10 @@ target 'korydallos' do
   pod 'GooglePlaces'
   # Pods for korydallos
 
+  # Add the Firebase pod for Google Analytics
+  pod 'Firebase/Analytics'
 
+  # Add the pod for Firebase Cloud Messaging
+  pod 'Firebase/Messaging'
 
 end

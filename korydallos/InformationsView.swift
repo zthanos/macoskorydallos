@@ -29,19 +29,24 @@ struct InformationsView: View {
     @State private var results = [InfoMasterElement]()
     
     var body: some View {
-        ZStack{
-            //  TopBarWithoutNav()
-            List{
-                ForEach(results, id: \.id){ item in
-                    NavigationLink(destination: ApinidotesView(detail_id: item.id)) {
-                        CardView(image: item.imageurl, category: " ", heading: (item.infoMasterDescription), author: (item.title))
-                    }
-                    
-                }
-            }
+        
+        VStack{
+           // ScrollView{
                 
-            .onAppear(perform: loadData)
-        }
+                List(results, id: \.id){ item in
+                    
+                   
+                    NavigatedCardView(image: item.imageurl, category: " ", heading: (item.infoMasterDescription), author: (item.title), id: item.id)
+                        //  .frame(idealWidth: .infinity, maxWidth: .infinity, alignment: .center)
+                    
+                }  .frame(maxWidth: .infinity, maxHeight: .infinity)
+                
+                //  }//.id(UUID())
+                
+          //  }
+            
+        }.onAppear(perform: loadData)
+        
         
     }
     
@@ -62,9 +67,6 @@ struct InformationsView: View {
                         self.results = decodedResponse
                     }
                     return
-                }
-                else{
-                    
                 }
                 
             }

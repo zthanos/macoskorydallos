@@ -12,7 +12,7 @@ struct MyplacesView: View {
     let pop : UIView =  PopupMapOptions()
     var body: some View {
         VStack{
-            GoogleMapsView()
+            MyPlacesMap()
             .edgesIgnoringSafeArea(.top)
         }
         

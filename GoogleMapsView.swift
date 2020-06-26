@@ -56,8 +56,10 @@ struct GoogleMapsView: UIViewRepresentable {
     }
     
     func makeUIView(context: Self.Context) -> GMSMapView{
+        
         self.loadData()
         self.loadDataCity()
+        mapview.clear()
         mapview.settings.zoomGestures = true
         
         
